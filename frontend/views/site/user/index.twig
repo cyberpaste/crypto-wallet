@@ -1,0 +1,51 @@
+{% extends "base.twig" %}
+{% block content %}
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container">
+            <h1 class="text-uppercase mb-0">My account</h1>
+            <hr class="star-light">
+        </div>
+    </header>
+    <section id="contact">
+        <div class="container">
+
+            <div class="row">
+                {% for market in markets %}
+                    <div class="col-lg-8 mx-auto">
+                        {% if app.session.getFlash('market-'~market.id) %}
+                            <div class="alert alert-success" role="alert">
+                                {{app.session.getFlash('market-'~market.id)}}
+                            </div>
+                        {% endif %}
+                        {% if app.session.getFlash('market-'~market.id~'-error') %}
+                            <div class="alert alert-danger" role="alert">
+                                {{app.session.getFlash('market-'~market.id~'-error')}}
+                            </div>
+                        {% endif %}
+                        <h3>{{market.name}}</h3>
+                        <p>{{market.description}}</p>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cryptocurrency</th>
+                                    <th scope="col">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for currency, data in apiRequests[market.id].data %}
+                                    <tr>
+                                        <th scope="row">{{currency}}</th>
+                                        <td>{{data.available}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <a class="btn btn-primary btn-x" href="{{ url(['/user/update-balance/'~market.id]) }}">Update Balance</a>
+                        <a class="btn btn-primary btn-x" href="{{ url(['/user/edit']) }}">Edit Params</a>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

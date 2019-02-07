@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <section id="contact">
+        <div class="container">
+            <h2 class="text-center text-uppercase text-secondary mb-0 pt-5">login</h2>
+            <hr class="star-dark mb-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    {{ use('yii/widgets/ActiveForm') }}
+
+                    {% set form = active_form_begin({
+    'id': 'login-form',
+    'action' : '/login',
+    'options': {
+        'class': 'form-horizontal',
+    }}) %}
+                    {{ form.field(model, 'username') | raw }}
+                    {{ form.field(model, 'password').passwordInput() | raw }}
+                    {{ form.field(model, 'rememberMe').checkbox() | raw }}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-xl">Send</button>
+                    </div>
+                    {{ active_form_end() }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

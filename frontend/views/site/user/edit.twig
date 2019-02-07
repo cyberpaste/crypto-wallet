@@ -1,0 +1,37 @@
+{% extends "base.twig" %}
+{% block content %}
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container">
+            <h1 class="text-uppercase mb-0">Edit Account</h1>
+            <hr class="star-light">
+        </div>
+    </header>
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    {% if app.session.getFlash('msg') %}
+                        <div class="alert alert-success" role="alert">
+                            {{app.session.getFlash('msg')}}
+                        </div>
+                    {% endif %}
+                    <form class="form-horizontal" action="{{ url(['/user/edit']) }}" method="post">
+                        {% for market in markets %}
+                            <h3>{{market.name}}</h3>
+                            {% for param in market.params %}
+                                <div class="form-group">
+                                    <label class="control-label" for="">{{param.name}}</label>
+                                    <input type="text" class="form-control" name="params[{{param.id}}]" value="{{param.value}}">
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        <input type="hidden" name="{{app.request.csrfParam}}" value="{{app.request.csrfToken}}" />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-xl">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
