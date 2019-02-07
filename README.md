@@ -1,4 +1,4 @@
-# Info
+# Crypto Wallet
 
 A small service to get a balance from a connected exchange Binance (https://www.binance.com/).
 Main user case of use:
@@ -27,7 +27,7 @@ namespace common\helpers;
 
 use common\interfaces\ApiInterface;
 
-class DummyApi implements ApiInterface {
+class NewApi implements ApiInterface {
 
     public function addUserParams(array $params) {
 
@@ -44,5 +44,5 @@ class DummyApi implements ApiInterface {
 }
 
 ```
-3) Create common\api\DummiApi logic
+3) Create common\api\NewApi logic
 4) Edit new Api Fields
